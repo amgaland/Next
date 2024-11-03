@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="login.js" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1>Login</h1>
+    </header>
+
+    <main>
+      <form action="/login" method="post">
+        <ul>
+          <li>
+            <label for="username">Username</label>
+          </li>
+          <li>
+            <input type="text" id="username" name="username" />
+          </li>
+          <li>
+            <label for="password">Password</label>
+          </li>
+          <li>
+            <input type="password" id="password" name="Password" />
+          </li>
+
+          <input type="checkbox" id="checkbox" />
+          <label for="Remember me">Remember me</label>
+
+          <a href="../forgotPassword/fp.html">Forgot Password?</a>
+          <li>
+            <button type="submit">Login</button>
+          </li>
+
+          <label for="">No account yet?</label>
+          <a href="../signup/signup.html">SignUp</a>
+        </ul>
+      </form>
+    </main>
+
+    <footer></footer>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* background: seagreen; */
+}
+
+ul {
+  list-style-type: none;
+}
+form {
+  width: 420px;
+  /* background: purple; */
+  /* color: white; */
+}
+
+form h1 {
+  text-align: center;
+}
+
+form input {
+  width: 100%;
+  height: 50px;
+  /* background: salmon; */
+  margin: 30px 0qq;
+}

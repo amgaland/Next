@@ -4,27 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="login.js" />
+    <link rel="stylesheet" href="../CSS/login.css" />
     <title>Document</title>
   </head>
   <body>
-    <header>
-      <h1>Login</h1>
-    </header>
+    <header></header>
 
     <main>
-      <form action="/login" method="post">
+      <form>
+        <h1>NextPlay</h1>
         <ul>
-          <li>
-            <label for="username">Username</label>
+          <li class="input-box">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username"
+            />
           </li>
           <li>
-            <input type="text" id="username" name="username" />
-          </li>
-          <li>
-            <label for="password">Password</label>
-          </li>
-          <li>
-            <input type="password" id="password" name="Password" />
+            <input
+              type="password"
+              id="password"
+              name="Password"
+              placeholder="Password"
+            />
           </li>
 
           <input type="checkbox" id="checkbox" />

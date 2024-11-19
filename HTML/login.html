@@ -1,27 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="login.js" />
     <link rel="stylesheet" href="../CSS/login.css" />
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Log in</title>
   </head>
   <body>
-    <header></header>
+    <header>
+      <h1>NEXT</h1>
+    </header>
 
     <main>
       <form>
-        <h1>NextPlay</h1>
+        <h1>Login</h1>
         <ul>
           <li class="input-box">
+            <p>Email address</p>
             <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Username"
+              type="email"
+              id="Email"
+              name="Email"
+              placeholder="Email address"
             />
           </li>
+          <label>Password</label>
+          <a href="">Forgot password?</a>
           <li>
             <input
               type="password"
@@ -30,17 +41,14 @@
               placeholder="Password"
             />
           </li>
-
-          <input type="checkbox" id="checkbox" />
-          <label for="Remember me">Remember me</label>
-
-          <a href="../forgotPassword/fp.html">Forgot Password?</a>
           <li>
             <button type="submit">Login</button>
           </li>
 
-          <label for="">No account yet?</label>
-          <a href="../signup/signup.html">SignUp</a>
+          <hr />
+
+          <p>Don't have an account?</p>
+          <a href="../signup/signup.html" id="create_account">Create Account</a>
         </ul>
       </form>
     </main>

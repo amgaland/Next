@@ -4,6 +4,22 @@
   align-items: center;
 } */
 
+:root {
+  --orange-1: #ff5500;
+  --orange-2: #e14a00;
+  --orange-3: #ff6900;
+  --orange-4: #ff7d00;
+
+  --white-1: #ebeff3;
+  --white-2: #f5f8fa;
+  --white-3: #e1e5e9;
+  --white-4: #d7dbdf;
+
+  --black-1: #141616;
+  --black-2: #0a0c0c;
+  --black-3: #232828;
+  --black-4: #323838;
+}
 * {
   margin: 0;
   padding: 0;
@@ -14,10 +30,14 @@
 html,
 body {
   display: grid;
-  height: 100%;
+  height: 30%;
   place-items: center;
-  background: rgb(0, 0, 0);
-  color: white;
+  background: var(--black-2);
+  color: var(--white-1);
+}
+
+header {
+  margin-bottom: 5%;
 }
 
 ul {
@@ -25,21 +45,28 @@ ul {
 }
 
 main {
-  width: 380px;
-  background: rgb(43, 42, 41);
+  width: 100%;
+  background: var(--black-1);
   border-radius: 10px;
 }
 
-main h1 {
-  line-height: 80px;
+main form h1 {
   display: grid;
   justify-content: center;
   align-items: center;
+  font-size: x-large;
+}
+
+form {
+  padding: 30px;
 }
 
 input {
   width: 100%;
-  background-color: gray;
+  height: fit-content;
+  background-color: var(--black-4);
+  border: var(--orange-1);
+  font-size: large;
 }
 
 ::placeholder {
@@ -48,4 +75,15 @@ input {
 
 button {
   width: 100%;
+  background-color: var(--orange-1);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-box {
+  margin-top: 2%;
 }

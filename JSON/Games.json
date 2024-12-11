@@ -1,0 +1,9 @@
+{
+  "games": [
+    {
+      "id": 1,
+      "team1Points": 0,
+      "team2Points": 0
+    }
+  ]
+}

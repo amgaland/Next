@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #2a2a2e, #121214);
+  color: white;
+}
+
+.dashboard {
+  display: flex;
+  background: url("/wp8943850-ye-kanye-west-wallpapers.jpg") no-repeat
+    center/cover;
+  background-size: cover;
+  border-radius: 15px; /* Rounded corners */
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+}
+
+.sidebar {
+  width: 250px;
+  background: rgba(28, 28, 31, 0.8); /* Transparent background */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.sidebar .profile {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile .avatar {
+  width: 60px;
+  height: 60px;
+  background: #333;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.menu {
+  width: 100%;
+}
+
+.menu-item {
+  display: block;
+  padding: 10px 15px;
+  color: #aaa;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.menu-item:hover,
+.menu-item.upgrade {
+  background: #ff5f57;
+  color: white;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background: rgba(46, 46, 50, 0.8); /* Semi-transparent */
+  border-radius: 10px;
+  margin-left: 20px;
+}
+
+.section-header {
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+}
+
+.card {
+  flex: 1;
+  padding: 20px;
+  background: rgba(46, 46, 50, 0.9);
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card .icon {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 10px;
+}
+
+.icon.matchmaking {
+  background: url("/faceit_web-next_assets_images_matchmaking_card_image.png")
+    no-repeat center/contain;
+}
+
+.icon.league {
+  background: url("/faceit_web-next_assets_images_ESEA_league_card_image.png")
+    no-repeat center/contain;
+}
+
+.icon.tournaments {
+  background: url("/faceit_web-next_assets_images_tournaments_card_image.png")
+    no-repeat center/contain;
+}

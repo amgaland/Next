@@ -1,48 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const loginForm = document.querySelector("form");
-  const emailInput = document.getElementById("Email");
-  const passwordInput = document.getElementById("password");
+  const loginForm = document.getElementById("loginForm");
 
   loginForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default form submission behavior
 
-    const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
+    // Get form values
+    const email = document.getElementById("Email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    if (email === "" || password === "") {
-      alert("Please enter both email and password");
+    if (!email || !password) {
+      alert("Please enter both email and password.");
       return;
     }
 
-    // Create the payload for the POST request
-    const loginData = {
-      email: email,
-      password: password,
-    };
-
     try {
-      const response = await fetch("http://localhost:3001/login", {
+      // Send POST request to the backend
+      const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(loginData),
+        body: JSON.stringify({ email, password }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          alert("Login successful!");
-          // Redirect to the dashboard or home page
-          window.location.href = "/dashboard.html";
-        } else {
-          alert("Invalid email or password");
-        }
+        alert("Login successful!");
+        console.log("User data:", data.user);
+        // Redirect to another page or perform further actions
+        window.location.href = "../html/landing.html"; // Replace with your desired URL
       } else {
-        alert("Error during login. Please try again later.");
+        alert(data.message || "Login failed.");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error during login:", error);
       alert("An error occurred. Please try again later.");
     }
   });

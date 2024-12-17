@@ -1,19 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="/CSS/landing.css" />
+    <script src="/JS/landing.js"></script>
   </head>
   <body>
     <section class="dashboard">
       <aside class="sidebar">
-        <div class="profile">
-          <div class="avatar"></div>
+        <header class="profile">
+          <figure class="avatar"></figure>
           <p>PRODUCT DESIGNER</p>
           <h2>Amgalan</h2>
-        </div>
+        </header>
         <nav class="menu">
           <a href="#" class="menu-item">Dashboard</a>
           <a href="#" class="menu-item">Match Making</a>
@@ -28,23 +29,23 @@
         </nav>
       </aside>
       <main class="main-content">
-        <div class="section-header">
+        <header class="section-header">
           <h1>Basketball</h1>
-        </div>
-        <div class="cards">
-          <div class="card">
-            <div class="icon matchmaking"></div>
+        </header>
+        <ul class="cards">
+          <li class="card">
+            <span class="icon matchmaking"></span>
             <p>Match Making</p>
-          </div>
-          <div class="card">
-            <div class="icon league"></div>
+          </li>
+          <li class="card">
+            <span class="icon league"></span>
             <p>League</p>
-          </div>
-          <div class="card">
-            <div class="icon tournaments"></div>
+          </li>
+          <li class="card">
+            <span class="icon tournaments"></span>
             <p>Tournaments</p>
-          </div>
-        </div>
+          </li>
+        </ul>
       </main>
     </section>
   </body>

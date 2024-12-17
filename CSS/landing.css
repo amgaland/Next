@@ -9,15 +9,15 @@ body {
   display: flex;
   background: url("/backgroundImage.jpg") no-repeat center/cover;
   background-size: cover;
-  border-radius: 15px; /* Rounded corners */
+  border-radius: 15px;
   padding: 20px;
   margin: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar {
   width: 250px;
-  background: rgba(28, 28, 31, 0.8); /* Transparent background */
+  background: rgba(28, 28, 31, 0.8);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -25,12 +25,12 @@ body {
   border-radius: 10px;
 }
 
-.sidebar .profile {
+.sidebar header.profile {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.profile .avatar {
+header.profile figure.avatar {
   width: 60px;
   height: 60px;
   background: #333;
@@ -38,7 +38,7 @@ body {
   margin-bottom: 10px;
 }
 
-.menu {
+nav.menu {
   width: 100%;
 }
 
@@ -60,21 +60,24 @@ body {
 .main-content {
   flex: 1;
   padding: 20px;
-  background: rgba(46, 46, 50, 0.8); /* Semi-transparent */
+  background: rgba(46, 46, 50, 0.8);
   border-radius: 10px;
   margin-left: 20px;
 }
 
-.section-header {
+header.section-header {
   margin-bottom: 20px;
 }
 
-.cards {
+ul.cards {
   display: flex;
   gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.card {
+.cards li.card {
   flex: 1;
   padding: 20px;
   background: rgba(46, 46, 50, 0.9);

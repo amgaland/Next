@@ -1,0 +1,24 @@
+
+-- Recreate the login table with email and password
+CREATE TABLE login (
+    user_id SERIAL PRIMARY KEY, -- Auto-incrementing user ID
+    email VARCHAR(255) NOT NULL UNIQUE, -- Unique email
+    password VARCHAR(255) NOT NULL, -- Plain-text password (avoid in production)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Account creation timestamp
+);
+
+-- Insert example data
+INSERT INTO login (email, password)
+VALUES 
+    ('user1@example.com', 'password123'),
+    ('user2@example.com', 'mypassword'),
+    ('user3@example.com', 'examplepass'),
+    ('user4@example.com', 'pass4user'),
+    ('user5@example.com', 'securepass5'),
+    ('user6@example.com', 'mypassword6'),
+    ('user7@example.com', 'examplepass7'),
+    ('user8@example.com', 'passworduser8'),
+    ('user9@example.com', 'testpassword9'),
+    ('user10@example.com', 'finalpass10');
+
+

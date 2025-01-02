@@ -7,7 +7,7 @@ body {
 
 .dashboard {
   display: flex;
-  background: url("/backgroundImage.jpg") no-repeat center/cover;
+  background: url("../img/backgroundImage.jpg") no-repeat center/cover;
   background-size: cover;
   border-radius: 15px;
   padding: 20px;
@@ -92,17 +92,3 @@ ul.cards {
   margin: 0 auto 10px;
 }
 
-.icon.matchmaking {
-  background: url("/faceit_web-next_assets_images_matchmaking_card_image.png")
-    no-repeat center/contain;
-}
-
-.icon.league {
-  background: url("/faceit_web-next_assets_images_ESEA_league_card_image.png")
-    no-repeat center/contain;
-}
-
-.icon.tournaments {
-  background: url("/faceit_web-next_assets_images_tournaments_card_image.png")
-    no-repeat center/contain;
-}

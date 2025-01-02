@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/CSS/landing.css" />
-    <script src="/JS/landing.js"></script>
+    <link rel="stylesheet" href="/CSS/group.css" />
+
   </head>
   <body>
     <section class="dashboard">
@@ -29,24 +29,28 @@
         </nav>
       </aside>
       <main class="main-content">
-        <header class="section-header">
-          <h1>Basketball</h1>
-        </header>
-        <ul class="cards">
-          <li class="card">
-            <span class="icon matchmaking"></span>
-            <p>Match Making</p>
-          </li>
-          <li class="card">
-            <span class="icon league"></span>
-            <p>League</p>
-          </li>
-          <li class="card">
-            <span class="icon tournaments"></span>
-            <p>Tournaments</p>
-          </li>
-        </ul>
+
+            <main class="container">
+              <!-- Search and Filter Section -->
+              <div class="search-filter-section">
+                <input type="text" id="search" placeholder="Search for clubs..." />
+                <select id="category">
+                  <option value="all">All Categories</option>
+                  <option value="sports">Sports</option>
+                  <option value="fitness">Fitness</option>
+                  <option value="games">Games</option>
+                </select>
+              </div>
+
+              <!-- Club Listing Section -->
+              <section id="club-list" class="club-list">
+                <!-- Club Cards will be dynamically rendered here -->
+              </section>
+            </main>
+
       </main>
     </section>
+
+        <script type="module" src="../JS/group.js"></script>
   </body>
 </html>

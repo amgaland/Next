@@ -14,8 +14,8 @@ const client = new Client({
   host: "localhost",
   user: "postgres",
   port: 5432,
-  password: "amgalan0822", // Replace with your actual password
-  database: "postgres",
+  password: "admin", // Replace with your actual password
+  database: "login",
 });
 
 client.connect();

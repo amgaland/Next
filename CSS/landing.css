@@ -7,7 +7,7 @@ body {
 
 .dashboard {
   display: flex;
-  background: url("/backgroundImage.jpg") no-repeat center/cover;
+  background: url("../img/backgroundImage.jpg") no-repeat center/cover;
   background-size: cover;
   border-radius: 15px;
   padding: 20px;
@@ -49,12 +49,21 @@ nav.menu {
   text-decoration: none;
   border-radius: 8px;
   margin-bottom: 5px;
+  transition: background 0.3s ease;
 }
 
 .menu-item:hover,
 .menu-item.upgrade {
   background: #ff5f57;
   color: white;
+}
+.menu-item.active {
+  background: #ff5f57;
+  color: white;
+}
+
+.menu-item.active {
+  background: #ff5f57; /* Keep the hover color after click */
 }
 
 .main-content {

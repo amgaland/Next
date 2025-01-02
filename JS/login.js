@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Login successful!");
         console.log("User data:", data.user);
         // Redirect to another page or perform further actions
-        window.location.href = "../html/landing.html"; // Replace with your desired URL
+        window.location.href = "../HTML/landing.html"; // Replace with your desired URL
       } else {
         alert(data.message || "Login failed.");
       }

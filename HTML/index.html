@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../CSS/landing.css" />
+  </head>
+  <body>
+    <section class="dashboard">
+      <aside class="sidebar">
+        <header class="profile">
+          <figure class="avatar"></figure>
+          <p>PRODUCT DESIGNER</p>
+          <h2>Amgalan</h2>
+        </header>
+        <nav class="menu">
+          <a href="#" class="menu-item" onclick="changeContent('dashboard')"
+            >Dashboard</a
+          >
+          <a href="#" class="menu-item" onclick="changeContent('matchmaking')"
+            >Match Making</a
+          >
+          <a href="#" class="menu-item" onclick="changeContent('activities')"
+            >Activities</a
+          >
+          <a href="#" class="menu-item" onclick="changeContent('event')"
+            >Event</a
+          >
+          <a href="#" class="menu-item" onclick="changeContent('notification')"
+            >Notification</a
+          >
+          <a href="#" class="menu-item" onclick="changeContent('clubs')"
+            >Clubs</a
+          >
+          <a href="#" class="menu-item" onclick="changeContent('basketball')"
+            >Basketball</a
+          >
+          <a href="#" class="menu-item" onclick="changeContent('create-club')"
+            >Create a club</a
+          >
+          <a href="#" class="menu-item" onclick="changeContent('settings')"
+            >Settings</a
+          >
+          <a
+            href="#"
+            class="menu-item upgrade"
+            onclick="changeContent('upgrade')"
+            >Upgrade</a
+          >
+        </nav>
+      </aside>
+
+      <main class="main-content" id="main-content">
+        <header class="section-header">
+          <h1>Dashboard</h1>
+        </header>
+        <ul class="cards">
+          <li class="card" onclick="changeContent('matchmaking')">
+            <span class="icon matchmaking"></span>
+            <p>Match Making</p>
+          </li>
+          <li class="card" onclick="changeContent('league')">
+            <span class="icon league"></span>
+            <p>League</p>
+          </li>
+          <li class="card" onclick="changeContent('tournaments')">
+            <span class="icon tournaments"></span>
+            <p>Tournaments</p>
+          </li>
+        </ul>
+      </main>
+    </section>
+    <script src="../JS/ChangeContent.js"></script>
+  </body>
+</html>

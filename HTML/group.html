@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../CSS/group.css" />
+  </head>
+  <body>
+    <main class="main-content">
+      <main class="container">
+        <!-- Search and Filter Section -->
+        <div class="search-filter-section">
+          <input type="text" id="search" placeholder="Search for clubs..." />
+          <select id="category">
+            <option value="all">All Categories</option>
+            <option value="sports">Sports</option>
+            <option value="fitness">Fitness</option>
+            <option value="games">Games</option>
+          </select>
+        </div>
+
+        <!-- Club Listing Section -->
+        <section id="club-list" class="club-list">
+          <!-- Club Cards will be dynamically rendered here -->
+        </section>
+      </main>
+    </main>
+
+    <script type="module" src="../JS/group.js"></script>
+  </body>
+</html>

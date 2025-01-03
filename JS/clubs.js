@@ -1,4 +1,4 @@
-import { groups } from "./dummy.js";
+import { groups } from "./groups_dummy.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const clubList = document.getElementById("club-list");

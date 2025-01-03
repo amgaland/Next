@@ -3,27 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../CSS/landing.css" />
   </head>
   <body>
-    <main class="main-content">
-      <header class="section-header">
-        <h1>Basketball</h1>
-      </header>
-      <ul class="cards">
-        <li class="card">
-          <span class="icon matchmaking"></span>
-          <p>Match Making</p>
-        </li>
-        <li class="card">
-          <span class="icon league"></span>
-          <p>League</p>
-        </li>
-        <li class="card">
-          <span class="icon tournaments"></span>
-          <p>Tournaments</p>
-        </li>
-      </ul>
-    </main>
+    <section class="dashboard">
+      <aside class="sidebar">
+        <header class="profile">
+          <figure class="avatar"></figure>
+          <p>PRODUCT DESIGNER</p>
+          <h2>Amgalan</h2>
+        </header>
+        <nav class="menu">
+          <a href="./Dashboard.html" class="menu-item">Dashboard</a>
+          <a href="#" class="menu-item">Match Making</a>
+          <a href="./Activities.html" class="menu-item">Activities</a>
+          <a href="#" class="menu-item">Event</a>
+          <a href="#" class="menu-item">Notification</a>
+          <a href="./clubs.html" class="menu-item">Clubs</a>
+
+          <a href="#" class="menu-item">Create a club</a>
+          <a href="#" class="menu-item">Settings</a>
+          <a href="#" class="menu-item upgrade">Upgrade</a>
+        </nav>
+      </aside>
+
+      <main class="main-content" id="main-content">
+        <header class="section-header">
+          <h1>Basketball</h1>
+        </header>
+        <ul class="cards">
+          <li class="card">
+            <span class="icon matchmaking"></span>
+            <p>Match Making</p>
+          </li>
+          <li class="card">
+            <span class="icon league"></span>
+            <p>League</p>
+          </li>
+          <li class="card">
+            <span class="icon tournaments"></span>
+            <p>Tournaments</p>
+          </li>
+        </ul>
+      </main>
+    </section>
+    <script src="../JS/ChangeContent.js"></script>
   </body>
 </html>

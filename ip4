@@ -1,0 +1,5 @@
+pc: ipconfig /all
+192.168.1.149
+
+mac HOME: ip address show
+192.168.1.153

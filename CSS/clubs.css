@@ -89,7 +89,9 @@ ul.cards {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .club-card:hover {
@@ -110,6 +112,7 @@ ul.cards {
 .club-card-content h3 {
   font-size: 1.2rem;
   margin: 0 0 10px;
+  color: black;
 }
 
 .club-card-content p {

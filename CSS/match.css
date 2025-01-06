@@ -1,0 +1,22 @@
+h1 {
+  text-align: center;
+}
+p {
+  text-align: center;
+}
+ul {
+  list-style: none;
+}
+.grid {
+  display: grid;
+  text-align: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  list-style: none;
+  border-style: solid;
+  border-color: red;
+}
+
+li {
+  border-style: solid;
+  border-color: red;
+}

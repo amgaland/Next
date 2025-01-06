@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="../CSS/landing.css" />
-    <link rel="stylesheet" href="../css/clubs.css" />
-    <script src="../Components/sidebar-component.js" type="module"></script>
-  </head>
-  <body>
-    <section class="dashboard">
-      <sidebar-navigation></sidebar-navigation>
-      <main class="main-content" id="main-content">
-        <div class="search-filter-section">
-          <input type="text" id="search" placeholder="Search for clubs..." />
-          <select id="category">
-            <option value="all">All Categories</option>
-            <option value="sports">Sports</option>
-            <option value="fitness">Fitness</option>
-            <option value="games">Games</option>
-          </select>
-        </div>
 
-        <!-- Club Listing Section -->
-        <section id="club-list" class="club-list">
-          <!-- Club Cards will be dynamically rendered here -->
-        </section>
-      </main>
-    </section>
-    <script type="module" src="../JS/clubs.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../CSS/landing.css" />
+  <link rel="stylesheet" href="../css/clubs.css" />
+  <script src="../Components/sidebar-component.js" type="module"></script>
+</head>
+
+<body>
+  <section class="dashboard">
+    <sidebar-navigation></sidebar-navigation>
+    <main class="main-content" id="main-content">
+      <div class="search-filter-section">
+        <input type="text" id="search" placeholder="Search for clubs..." />
+        <select id="category">
+          <option value="all">All Categories</option>
+          <option value="sports">Sports</option>
+          <option value="fitness">Fitness</option>
+          <option value="games">Games</option>
+        </select>
+      </div>
+
+      <!-- Club Listing Section -->
+      <section id="club-list" class="club-list">
+        <!-- Club Cards will be dynamically rendered here -->
+      </section>
+    </main>
+  </section>
+  <script type="module" src="../JS/clubs.js"></script>
+</body>
+
 </html>

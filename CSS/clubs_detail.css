@@ -1,0 +1,63 @@
+/* General Styles */
+
+
+
+/* Club Image */
+#club-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Club Name */
+#club-name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #2c3e50;
+}
+
+/* Club Description */
+#club-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+/* Back Button */
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff5f57;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #e74c3c;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #club-name {
+        font-size: 1.5rem;
+    }
+
+    #club-description {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}

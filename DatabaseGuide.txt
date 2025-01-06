@@ -9,7 +9,7 @@ CREATE TABLE login (
 
 -- Insert example data
 INSERT INTO login (email, password)
-VALUES 
+VALUES
     ('user1@example.com', 'password123'),
     ('user2@example.com', 'mypassword'),
     ('user3@example.com', 'examplepass'),
@@ -21,4 +21,88 @@ VALUES
     ('user9@example.com', 'testpassword9'),
     ('user10@example.com', 'finalpass10');
 
+--Recreate events table
+CREATE TABLE events (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    date TIMESTAMP NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    image_path TEXT,
+    rsvp_count INTEGER DEFAULT 0
+);
 
+--Datas(img path iig zuv oruulah)
+INSERT INTO events (title, description, date, location, image_path)
+VALUES ('Sample Event', 'This is a sample description', '2025-01-10 10:00:00', 'Sample Location', '../img/image.jpg');
+
+--Recreate rsvp table
+CREATE TABLE rsvps (
+    id SERIAL PRIMARY KEY,            -- Unique identifier for each RSVP
+    event_id INT NOT NULL,            -- References the event being RSVPed to
+    user_id INT NOT NULL,             -- Represents the user making the RSVP (if you have users)
+    FOREIGN KEY (event_id) REFERENCES events (id) ON DELETE CASCADE
+);
+
+
+--NOT FULLY FINISHED BUT U CAN USE IT
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE clubs (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    image VARCHAR(255) NOT NULL, -- URL or file path for the club's image
+    category VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE posts (
+    id SERIAL PRIMARY KEY,
+    club_id INT NOT NULL,
+    user_id INT NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    FOREIGN KEY (club_id) REFERENCES clubs (id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
+    post_id INT NOT NULL,
+    user_id INT NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+INSERT INTO users (username, email, password)
+VALUES
+('john_doe', 'john@example.com', 'password123'),
+('jane_doe', 'jane@example.com', 'password456');
+
+-- IMAGE PATH ZUV ZAAH!!!!!
+INSERT INTO clubs (name, description, image, category)
+VALUES
+('Soccer Stars', 'A club for soccer enthusiasts.', '../img/soccer.jpg', 'sports'),
+('Chess Masters', 'A club for chess lovers.', '../img/chess.jpg', 'mind games');
+
+INSERT INTO posts (club_id, user_id, content)
+VALUES
+(1, 1, 'Looking forward to our next soccer match!'),
+(1, 2, 'Let’s organize a friendly game this weekend!'),
+(2, 1, 'Who’s up for a chess tournament?');
+
+INSERT INTO comments (post_id, user_id, content)
+VALUES
+(1, 2, 'Can’t wait! Soccer is the best.'),
+(1, 1, 'I’ll bring the equipment.'),
+(3, 2, 'Count me in for the chess tournament!');

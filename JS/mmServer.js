@@ -1,26 +1,31 @@
-const io = require("socket.io")(3000);
+const io = require("socket.io")(3001, {
+  cors: {
+    origin: "http://127.0.0.1:5500", // Allow requests from this specific frontend address
+    methods: ["GET", "POST"], // Allow only GET and POST methods
+  },
+});
 
 const users = {};
-const matchmakingQueue = []; // Queue for matchmaking
+const matchmakingQueue = [];
 
 io.on("connection", (socket) => {
+  // Handle the event when a new user connects
   socket.on("new-user", (name) => {
     users[socket.id] = name;
     socket.emit("welcome", `Welcome, ${name}!`);
   });
 
+  // Handle when a user joins the matchmaking queue
   socket.on("join-queue", () => {
-    // Add user to matchmaking queue
     matchmakingQueue.push(socket.id);
     console.log(`${users[socket.id]} joined the queue.`);
 
-    // Emit a confirmation to the client
     socket.emit("joined-queue", {
       status: "You are in the matchmaking queue.",
       position: matchmakingQueue.length,
     });
 
-    // Try to match the user if there's another one in the queue
+    // If there are at least two users in the queue, make a match
     if (matchmakingQueue.length >= 2) {
       const player1 = matchmakingQueue.shift();
       const player2 = matchmakingQueue.shift();
@@ -30,10 +35,11 @@ io.on("connection", (socket) => {
     }
   });
 
+  // Handle user disconnecting
   socket.on("disconnect", () => {
     socket.broadcast.emit("user-disconnected", users[socket.id]);
     delete users[socket.id];
-    // Remove user from matchmaking queue if disconnected
+
     const index = matchmakingQueue.indexOf(socket.id);
     if (index !== -1) {
       matchmakingQueue.splice(index, 1);

@@ -1,4 +1,4 @@
-const socket = io("http://localhost:3000");
+const socket = io("http://localhost:3001");
 
 const statusText = document.getElementById("status-text");
 const joinButton = document.getElementById("join-button");

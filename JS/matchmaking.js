@@ -13,14 +13,14 @@ socket.on("welcome", (message) => {
 
 socket.on("match-found", (data) => {
   statusText.textContent = `You are matched with ${data.opponent}. Good luck!`;
-  joinButton.disabled = true; // Disable the button once a match is found
+  joinButton.disabled = true; // Match oldvol towchluur idevhgui bolno
 });
 
 socket.on("user-disconnected", (name) => {
   console.log(`${name} disconnected`);
 });
 
-// Listen for when the user successfully joins the queue
+// Hereglegch amjilttai holbogdson esehiig sonsono
 socket.on("joined-queue", (data) => {
   statusText.textContent = `${data.status} Position in queue: ${data.position}`;
 });
@@ -28,5 +28,5 @@ socket.on("joined-queue", (data) => {
 joinButton.addEventListener("click", () => {
   socket.emit("join-queue");
   statusText.textContent = "You are in the queue. Waiting for a match...";
-  joinButton.disabled = true; // Disable the button once clicked
+  joinButton.disabled = true; // Tovch daragdsan tohioldold idehgui bolno
 });

@@ -1,7 +1,7 @@
 const io = require("socket.io")(3001, {
   cors: {
-    origin: "http://127.0.0.1:5500", // Allow requests from this specific frontend address
-    methods: ["GET", "POST"], // Allow only GET and POST methods
+    origin: "http://127.0.0.1:5500", // Ene hayagaa request huleen avah zuwshuurul
+    methods: ["GET", "POST"], //GET POST uildliig zuvshuurnu
   },
 });
 
@@ -9,7 +9,7 @@ const users = {};
 const matchmakingQueue = [];
 
 io.on("connection", (socket) => {
-  // Handle the event when a new user connects
+  //Shine hereglegch holbogdoh eventiig zohitsuulna
   socket.on("new-user", (name) => {
     users[socket.id] = name;
     socket.emit("welcome", `Welcome, ${name}!`);
@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
       position: matchmakingQueue.length,
     });
 
-    // If there are at least two users in the queue, make a match
+    // 2 toglogch orj irvel match uusgene
     if (matchmakingQueue.length >= 2) {
       const player1 = matchmakingQueue.shift();
       const player2 = matchmakingQueue.shift();
@@ -35,7 +35,7 @@ io.on("connection", (socket) => {
     }
   });
 
-  // Handle user disconnecting
+  // Hereglegch disconnet hiihiig hariutsna
   socket.on("disconnect", () => {
     socket.broadcast.emit("user-disconnected", users[socket.id]);
     delete users[socket.id];

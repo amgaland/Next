@@ -3,7 +3,9 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "pg": "^8.13.1",
-    "pg-promise": "^11.10.2"
+    "pg-promise": "^11.10.2",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
   },
   "name": "next",
   "version": "1.0.0",

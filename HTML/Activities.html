@@ -1,39 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
+    <title>Activities</title>
+    <link rel="stylesheet" href="" />
     <link rel="stylesheet" href="../CSS/landing.css" />
+    <link rel="stylesheet" href="../CSS/activities.css" />
     <script src="../Components/sidebar-component.js" type="module"></script>
   </head>
   <body>
     <section class="dashboard">
       <sidebar-navigation></sidebar-navigation>
-
-      <main class="main-content" id="main-content">
-        <div class="activities-header">
-          <h1>Available Activities</h1>
-          <p>Browse through the list of activities and find your match!</p>
+      <main class="main-content">
+        <div class="activity-container" id="activity-container">
+          <!-- Activities will be dynamically rendered here -->
         </div>
-        <div class="activity-list">
-          <!-- Example Activity Card -->
-          <div class="activity-card">
-            <h2>Basketball Match</h2>
-            <p>Join an exciting basketball game this weekend. All skill levels are welcome!</p>
-            <button>Join Now</button>
-          </div>
-          <div class="activity-card">
-            <h2>Chess Tournament</h2>
-            <p>Test your strategic skills in our local chess tournament. Prizes await!</p>
-            <button>Register</button>
-          </div>
-          <div class="activity-card">
-            <h2>Outdoor Hiking</h2>
-            <p>Explore the great outdoors with a group hike. Don't forget your gear!</p>
-            <button>Sign Up</button>
-          </div>
       </main>
     </section>
+    <script type="module" src="../JS/activities.js"></script>
   </body>
 </html>

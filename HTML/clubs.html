@@ -5,26 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="../CSS/landing.css" />
-    <link rel="stylesheet" href="../css/clubs.css" />
+    <link rel="stylesheet" href="../CSS/clubs.css" />
     <script src="../Components/sidebar-component.js" type="module"></script>
   </head>
   <body>
     <section class="dashboard">
+      <!-- Sidebar Navigation -->
       <sidebar-navigation></sidebar-navigation>
+
+      <!-- Main Content Section -->
       <main class="main-content" id="main-content">
+        <!-- Search bolon Filter Section -->
         <div class="search-filter-section">
-          <input type="text" id="search" placeholder="Search for clubs..." />
-          <select id="category">
-            <option value="all">All Categories</option>
-            <option value="sports">Sports</option>
-            <option value="fitness">Fitness</option>
-            <option value="games">Games</option>
-          </select>
+          <form class="filter-form" aria-label="Search and Filter Clubs">
+            <label for="search" class="visually-hidden">Search for clubs</label>
+            <input
+              type="text"
+              id="search"
+              placeholder="Search for clubs..."
+              aria-label="Search for clubs"
+            />
+            <label for="category" class="visually-hidden"
+              >Filter by category</label
+            >
+            <select id="category" aria-label="Filter by category">
+              <option value="all">All Categories</option>
+              <option value="sports">Sports</option>
+              <option value="fitness">Fitness</option>
+              <option value="games">Games</option>
+            </select>
+          </form>
         </div>
 
         <!-- Club Listing Section -->
-        <section id="club-list" class="club-list">
-          <!-- Club Cards will be dynamically rendered here -->
+        <section id="club-list" class="club-list" aria-live="polite">
+          <!-- Fallback content -->
+          <p class="fallback-message">
+            No clubs available. Please try again later.
+          </p>
         </section>
       </main>
     </section>

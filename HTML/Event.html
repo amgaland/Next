@@ -63,7 +63,7 @@
 
     // Fetch Events
     async function fetchEvents() {
-      const response = await fetch('http://localhost:3000/events');
+      const response = await fetch('http://localhost:3000/api/events');
       const events = await response.json();
       const eventList = document.getElementById('event-list');
       eventList.innerHTML = '';
@@ -110,7 +110,7 @@
       const date = document.getElementById('date').value;
       const location = document.getElementById('location').value;
 
-      const response = await fetch('http://localhost:3000/events', {
+      const response = await fetch('http://localhost:3000/api/events', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, description, date, location }),
@@ -145,7 +145,7 @@
       const date = document.getElementById('date').value;
       const location = document.getElementById('location').value;
 
-      const response = await fetch('http://localhost:3000/events', {
+      const response = await fetch('http://localhost:3000/api/events', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, description, date, location, image_path }),
@@ -162,7 +162,7 @@
 
     // RSVP to an Event
     async function rsvpEvent(eventId) {
-      const response = await fetch(`http://localhost:3000/events/${eventId}/rsvp`, { method: 'POST' });
+      const response = await fetch(`http://localhost:3000/api/events/${eventId}/rsvp`, { method: 'POST' });
       if (response.ok) {
         alert('RSVP successful!');
         fetchEvents();

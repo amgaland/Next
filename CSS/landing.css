@@ -14,49 +14,6 @@ body {
   margin: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
-
-.sidebar {
-  width: 250px;
-  background: rgba(28, 28, 31, 0.8);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 10px;
-}
-
-.sidebar header.profile {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-header.profile figure.avatar {
-  width: 60px;
-  height: 60px;
-  background: #333;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-nav.menu {
-  width: 100%;
-}
-
-.menu-item {
-  display: block;
-  padding: 10px 15px;
-  color: #aaa;
-  text-decoration: none;
-  border-radius: 8px;
-  margin-bottom: 5px;
-}
-
-.menu-item:hover,
-.menu-item.upgrade {
-  background: #ff5f57;
-  color: white;
-}
-
 .main-content {
   flex: 1;
   padding: 20px;
@@ -64,31 +21,3 @@ nav.menu {
   border-radius: 10px;
   margin-left: 20px;
 }
-
-header.section-header {
-  margin-bottom: 20px;
-}
-
-ul.cards {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.cards li.card {
-  flex: 1;
-  padding: 20px;
-  background: rgba(46, 46, 50, 0.9);
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.card .icon {
-  width: 50px;
-  height: 50px;
-  margin: 0 auto 10px;
-}
-

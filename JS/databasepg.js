@@ -1,92 +1,209 @@
-const express = require("express");
+// HTTP server, PostgreSQL database-iig holbon backend-g hiisen kod.
+// Node.js ashiglaj plain module-r bichigdsen.
+
+const http = require("http");
 const { Client } = require("pg");
-const cors = require("cors");
+const url = require("url");
+const fs = require("fs");
+const path = require("path");
 
-const app = express();
-const PORT = 3000;
-
-// Middleware
-app.use(cors()); // Enable CORS for all routes
-app.use(express.json());
-
-// PostgreSQL client setup
-const client = new Client({
-  host: "localhost",
+// Database client setup
+const db = new Client({
   user: "postgres",
+  host: "localhost",
+  database: "server",
+  password: "admin",
   port: 5432,
-  password: "admin", // Replace with your actual password
-  database: "login",
 });
+db.connect();
 
-client.connect();
+// Request body parse hiih utility funkts.
+function parseBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = "";
+    req.on("data", (chunk) => (body += chunk)); // Body data-g unshina.
+    req.on("end", () => resolve(body));
+    req.on("error", reject);
+  });
+}
 
-// Routes
+// Route handler-uudiig zarlana.
+const routes = {
+  // GET method-d uilchleh route-uud.
+  GET: {
+    "/api/clubs": async (req, res) => {
+      try {
+        const result = await db.query("SELECT * FROM clubs");
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(result.rows));
+      } catch (error) {
+        console.error("Error fetching clubs:", error);
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end("Internal Server Error");
+      }
+    },
+    "/api/clubs/:id": async (req, res, params) => {
+      try {
+        const result = await db.query("SELECT * FROM clubs WHERE id = $1", [
+          params.id,
+        ]);
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(result.rows));
+      } catch (error) {
+        console.error("Error fetching club:", error);
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end("Internal Server Error");
+      }
+    },
+    "/api/events": async (req, res) => {
+      try {
+        const result = await db.query(
+          "SELECT id, title, description, date, location, image_path, rsvp_count FROM events"
+        );
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(result.rows));
+      } catch (error) {
+        console.error("Error fetching events:", error);
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end("Internal Server Error");
+      }
+    },
+    "/api/events/:id": async (req, res, params) => {
+      try {
+        const result = await db.query("SELECT * FROM events WHERE id = $1", [
+          params.id,
+        ]);
+        if (result.rows.length === 0) {
+          res.writeHead(404, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Event not found" }));
+        } else {
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(JSON.stringify(result.rows[0]));
+        }
+      } catch (error) {
+        console.error("Error fetching event:", error);
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end("Internal Server Error");
+      }
+    },
+  },
+  // POST method-d uilchleh route-uud.
+  POST: {
+    // Event uusgeh route.
+    "/api/events": async (req, res) => {
+      try {
+        const body = JSON.parse(await parseBody(req)); // Body-g parse hiine.
+        const { title, description, date, location, image_path } = body;
 
-// Signup Route
-app.post("/signup", async (req, res) => {
-  const { email, password } = req.body;
+        const result = await db.query(
+          "INSERT INTO events (title, description, date, location, image_path) VALUES ($1, $2, $3, $4, $5) RETURNING id",
+          [title, description, date, location, image_path]
+        );
 
-  if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
+        res.writeHead(201, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ id: result.rows[0].id }));
+      } catch (error) {
+        console.error("Error creating event:", error);
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end("Internal Server Error");
+      }
+    },
+    // Event RSVP nemelt hiih(count toolohdoo ashiglana)
+    "/api/events/:id/rsvp": async (req, res, params) => {
+      try {
+        const eventId = params.id;
+
+        await db.query(
+          "UPDATE events SET rsvp_count = rsvp_count + 1 WHERE id = $1",
+          [eventId]
+        );
+
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ success: true }));
+      } catch (error) {
+        console.error("Error updating RSVP:", error);
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end("Internal Server Error");
+      }
+    },
+  },
+  // File serve hiih(zuragnii input ee zasah)
+  GET_FILE: {
+    "/uploads/:filename": async (req, res, params) => {
+      try {
+        const filePath = path.join(__dirname, "uploads", params.filename);
+
+        if (fs.existsSync(filePath)) {
+          const fileStream = fs.createReadStream(filePath);
+          res.writeHead(200, { "Content-Type": "image/jpeg" });
+          fileStream.pipe(res);
+        } else {
+          res.writeHead(404, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "File not found" }));
+        }
+      } catch (error) {
+        console.error("Error fetching file:", error);
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end("Internal Server Error");
+      }
+    },
+  },
+};
+
+// Route-g match hiih funkts.
+function matchRoute(method, pathname) {
+  const routeKeys = Object.keys(routes[method] || {});
+  for (const route of routeKeys) {
+    const routeParts = route.split("/");
+    const pathParts = pathname.split("/");
+
+    if (routeParts.length === pathParts.length) {
+      const params = {};
+      const isMatch = routeParts.every((part, i) => {
+        if (part.startsWith(":")) {
+          params[part.slice(1)] = pathParts[i];
+          return true;
+        }
+        return part === pathParts[i];
+      });
+
+      if (isMatch) return { handler: routes[method][route], params };
+    }
+  }
+  return null;
+}
+
+// Server uusgej ehluulne.
+const server = http.createServer(async (req, res) => {
+  const parsedUrl = url.parse(req.url, true);
+  const pathname = parsedUrl.pathname;
+
+  // CORS header-nuud nemelt.
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // Handle preflight requests
+  if (req.method === "OPTIONS") {
+    res.writeHead(204);
+    res.end();
+    return;
   }
 
-  try {
-    // Check if the email already exists
-    const userCheck = await client.query(
-      "SELECT * FROM login WHERE email = $1",
-      [email]
-    );
-    if (userCheck.rows.length > 0) {
-      return res.status(400).json({ message: "Email is already registered" });
-    }
+  const method = req.method;
+  const routeMatch = matchRoute(method, pathname);
 
-    // Insert the new user
-    const result = await client.query(
-      "INSERT INTO login (email, password, created_at) VALUES ($1, $2, NOW()) RETURNING *",
-      [email, password]
-    );
-
-    res
-      .status(201)
-      .json({ message: "User registered successfully", user: result.rows[0] });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-// Login Route
-app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
-  }
-
-  try {
-    // Check if the user exists
-    const result = await client.query("SELECT * FROM login WHERE email = $1", [
-      email,
-    ]);
-    if (result.rows.length === 0) {
-      return res.status(400).json({ message: "Invalid email or password" });
-    }
-
-    const user = result.rows[0];
-
-    // Check if the password matches
-    if (user.password !== password) {
-      return res.status(400).json({ message: "Invalid email or password" });
-    }
-
-    res.status(200).json({ message: "Login successful", user });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ message: "Internal server error" });
+  if (routeMatch) {
+    const { handler, params } = routeMatch;
+    await handler(req, res, params);
+  } else {
+    // Fallback 404
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("Not Found");
   }
 });
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+server.listen(3000, () => {
+  console.log("Server running at http://localhost:3000/");
 });

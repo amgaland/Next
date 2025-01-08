@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Page</title>
+    <link rel="stylesheet" href="../CSS/landing.css" />
+    <link rel="stylesheet" href="../CSS/event.css" />
+    <script src="../Components/sidebar-component.js" type="module"></script>
+  </head>
+
+  <body>
+    <!-- Event Uusgeh Form -->
+    <section class="dashboard">
+      <sidebar-navigation></sidebar-navigation>
+      <main class="main-content" id="main-content">
+        <div class="toolbar">
+          <div id="search-bar">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search events..."
+              oninput="filterEvents()"
+            />
+          </div>
+          <button id="toggle-form-btn">Create Event</button>
+        </div>
+        <!-- Create Event Form -->
+        <div id="create-event-container" style="display: none">
+          <h2>Create an Event</h2>
+          <form id="create-event-form">
+            <input type="text" id="title" placeholder="Event Title" required />
+            <textarea
+              id="description"
+              placeholder="Event Description"
+              required
+            ></textarea>
+            <input type="datetime-local" id="date" required />
+            <input type="text" id="location" placeholder="Location" required />
+            <input type="file" id="image" accept="image/*" required />
+            <button type="submit">Create Event</button>
+          </form>
+        </div>
+        <!-- Event List -->
+        <section>
+          <h2>Upcoming Events</h2>
+          <div class="club-list" id="event-list">
+            <!-- Events end garch irne -->
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <script>
+      const toggleFormBtn = document.getElementById("toggle-form-btn");
+      const createEventContainer = document.getElementById(
+        "create-event-container"
+      );
+
+      toggleFormBtn.addEventListener("click", () => {
+        if (createEventContainer.style.display === "none") {
+          createEventContainer.style.display = "block";
+          toggleFormBtn.textContent = "Hide Form";
+        } else {
+          createEventContainer.style.display = "none";
+          toggleFormBtn.textContent = "Create Event";
+        }
+      });
+
+      // Fetch Events
+      async function fetchEvents() {
+        const response = await fetch("http://localhost:3000/api/events");
+        const events = await response.json();
+        const eventList = document.getElementById("event-list");
+        eventList.innerHTML = "";
+
+        events.forEach((event) => {
+          const eventCard = document.createElement("div");
+          eventCard.className = "club-card";
+          eventCard.innerHTML = `
+            <img src="${
+              event.image_path || "https://via.placeholder.com/250x150"
+            }" alt="Event Image">
+            <div class="club-card-content">
+                <h3>${event.title}</h3>
+                <p>${event.description}</p>
+                <p><strong>Date:</strong> ${new Date(
+                  event.date
+                ).toLocaleString()}</p>
+                <p><strong>Location:</strong> ${event.location}</p>
+                <p><strong>RSVPs:</strong> ${event.rsvp_count || 0}</p>
+                <button onclick="rsvpEvent(${event.id})">GOING</button>
+            </div>
+        `;
+          eventCard.setAttribute("data-title", event.title.toLowerCase());
+          eventList.appendChild(eventCard);
+        });
+      }
+
+      //Eventiig hailtaar ni filterlene
+      function filterEvents() {
+        const searchInput = document
+          .getElementById("search-input")
+          .value.toLowerCase();
+        const eventCards = document.querySelectorAll(".club-card");
+
+        eventCards.forEach((card) => {
+          const title = card.dataset.title || "";
+          if (title.includes(searchInput)) {
+            card.style.display = "";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
+      // Create Event
+      document
+        .getElementById("create-event-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const title = document.getElementById("title").value;
+          const description = document.getElementById("description").value;
+          const date = document.getElementById("date").value;
+          const location = document.getElementById("location").value;
+
+          const response = await fetch("http://localhost:3000/api/events", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ title, description, date, location }),
+          });
+
+          if (response.ok) {
+            alert("Event created successfully!");
+            fetchEvents();
+          } else {
+            alert("Error creating event.");
+          }
+        });
+
+      document
+        .getElementById("create-event-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          // Upload the image
+          const imageInput = document.getElementById("image").files[0];
+          const formData = new FormData();
+          formData.append("image", imageInput);
+
+          const uploadResponse = await fetch("http://localhost:3000/upload", {
+            method: "POST",
+            body: formData,
+          });
+
+          const { image_path } = await uploadResponse.json();
+
+          // Event uusgeh
+          const title = document.getElementById("title").value;
+          const description = document.getElementById("description").value;
+          const date = document.getElementById("date").value;
+          const location = document.getElementById("location").value;
+
+          const response = await fetch("http://localhost:3000/api/events", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title,
+              description,
+              date,
+              location,
+              image_path,
+            }),
+          });
+
+          if (response.ok) {
+            alert("Event created successfully!");
+            fetchEvents();
+          } else {
+            alert("Error creating event.");
+          }
+        });
+
+      // RSVP to an Event
+      async function rsvpEvent(eventId) {
+        const response = await fetch(
+          `http://localhost:3000/api/events/${eventId}/rsvp`,
+          { method: "POST" }
+        );
+        if (response.ok) {
+          alert("RSVP successful!");
+          fetchEvents();
+        } else {
+          alert("Error RSVPing to the event.");
+        }
+      }
+
+      // Initial Fetch
+      fetchEvents();
+    </script>
+  </body>
+</html>

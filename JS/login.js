@@ -28,8 +28,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (response.ok) {
         alert("Login successful!");
         console.log("User data:", data.user);
+
+        // Update the sidebar with the user's name
+        updateSidebar(data.name); // Pass the name here
+
         // Redirect to another page or perform further actions
-        window.location.href = "../html/landing.html"; // Replace with your desired URL
+        window.location.href = "../HTML/index.html"; // Replace with your desired URL
       } else {
         alert(data.message || "Login failed.");
       }
@@ -39,3 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+function updateSidebar(userName) {
+  // Find the <sidebar-navigation> element in the DOM
+  const sidebar = document.querySelector("sidebar-navigation");
+
+  // Update the name in the sidebar (inside shadow DOM)
+  const shadow = sidebar.shadowRoot;
+  const nameElement = shadow.querySelector(".profile h2");
+  if (nameElement) {
+    nameElement.textContent = userName; // Set the name dynamically
+  }
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../CSS/landing.css" />
+    <link rel="stylesheet" href="../CSS/matchmaking.css" />
+    <script src="../Components/sidebar-component.js" type="module"></script>
+    <script defer src="http://localhost:3001/socket.io/socket.io.js"></script>
+    <script defer src="../JS/matchmaking.js"></script>
+  </head>
+  <body>
+    <section class="dashboard">
+      <sidebar-navigation></sidebar-navigation>
+
+      <main class="main-content" id="main-content">
+        <div id="status-container">
+          <p id="status-text">Waiting for you to join the queue...</p>
+          <button id="join-button">Join Matchmaking Queue</button>
+        </div>
+      </main>
+    </section>
+  </body>
+</html>

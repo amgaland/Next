@@ -72,7 +72,7 @@ class SidebarNavigation extends HTMLElement {
     style.textContent = `.sidebar {
   width: 250px;
   background: rgba(28, 28, 31, 0.8);
-  padding: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;

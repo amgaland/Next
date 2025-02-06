@@ -2,9 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
 
   loginForm.addEventListener("submit", async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
+    event.preventDefault();
 
-    // Get form values
     const email = document.getElementById("Email").value.trim();
     const password = document.getElementById("password").value.trim();
 
@@ -14,8 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      // Send POST request to the backend
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch("http://localhost:3000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,13 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         alert("Login successful!");
-        console.log("User data:", data.user);
-
-        // Update the sidebar with the user's name
-        updateSidebar(data.name); // Pass the name here
-
-        // Redirect to another page or perform further actions
-        window.location.href = "../HTML/index.html"; // Replace with your desired URL
+        updateSidebar(data.user.user_id);
       } else {
         alert(data.message || "Login failed.");
       }
@@ -44,14 +36,22 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function updateSidebar(userName) {
-  // Find the <sidebar-navigation> element in the DOM
-  const sidebar = document.querySelector("sidebar-navigation");
+async function updateSidebar(userId) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/users/${userId}/username`
+    );
+    const data = await response.json();
 
-  // Update the name in the sidebar (inside shadow DOM)
-  const shadow = sidebar.shadowRoot;
-  const nameElement = shadow.querySelector(".profile h2");
-  if (nameElement) {
-    nameElement.textContent = userName; // Set the name dynamically
+    if (response.ok) {
+      const userName = data.username;
+
+      const sidebar = document.querySelector("sidebar-navigation");
+      if (sidebar) {
+        sidebar.updateUsername(userName);
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching username:", error);
   }
 }

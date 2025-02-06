@@ -89,7 +89,51 @@ const routes = {
   },
   // POST method-d uilchleh route-uud.
   POST: {
+<<<<<<< HEAD
     // Event uusgeh route.
+=======
+    "/api/login": async (req, res) => {
+      try {
+        const body = JSON.parse(await parseBody(req));
+        const { email, password } = body;
+
+        if (!email || !password) {
+          res.writeHead(400, { "Content-Type": "application/json" });
+          res.end(
+            JSON.stringify({ error: "Email and password are required." })
+          );
+          return;
+        }
+
+        const result = await db.query(
+          "SELECT * FROM login WHERE email = $1 AND password = $2",
+          [email, password]
+        );
+
+        if (result.rows.length === 0) {
+          res.writeHead(401, { "Content-Type": "application/json" });
+          res.end(JSON.stringify({ error: "Invalid email or password." }));
+        } else {
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(
+            JSON.stringify({
+              success: true,
+              message: "Login successful.",
+              user: {
+                id: result.rows[0].id,
+                email: result.rows[0].email,
+                last_login: result.rows[0].last_login,
+              },
+            })
+          );
+        }
+      } catch (error) {
+        console.error("Error during login:", error);
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end("Internal Server Error");
+      }
+    },
+>>>>>>> 5c67406189b6521345b5d896a0efdeb64b3a74d6
     "/api/events": async (req, res) => {
       try {
         const body = JSON.parse(await parseBody(req)); // Body-g parse hiine.
@@ -147,6 +191,36 @@ const routes = {
         res.end("Internal Server Error");
       }
     },
+  },
+  "/api/users/:id/username": async (req, res, params) => {
+    try {
+      const userId = params.id;
+      const body = JSON.parse(await parseBody(req));
+      const { username } = body;
+
+      if (!username) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Username is required." }));
+        return;
+      }
+
+      const result = await db.query(
+        "UPDATE users SET username = $1 WHERE id = $2 RETURNING id, username",
+        [username, userId]
+      );
+
+      if (result.rowCount === 0) {
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "User not found." }));
+      } else {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ success: true, user: result.rows[0] }));
+      }
+    } catch (error) {
+      console.error("Error updating username:", error);
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Internal Server Error");
+    }
   },
 };
 

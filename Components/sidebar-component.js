@@ -69,6 +69,7 @@ class SidebarNavigation extends HTMLElement {
 
     // Add styles to the shadow DOM
     const style = document.createElement("style");
+<<<<<<< HEAD
     style.textContent = `.sidebar {
   width: 250px;
   background: rgba(28, 28, 31, 0.8);
@@ -78,44 +79,57 @@ class SidebarNavigation extends HTMLElement {
   align-items: center;
   border-radius: 10px;
 }
+=======
+    style.textContent = `
+      .sidebar {
+        width: 250px;
+        background: rgba(28, 28, 31, 0.8);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 10px;
+      }
+>>>>>>> 5c67406189b6521345b5d896a0efdeb64b3a74d6
 
-.sidebar header.profile {
-  text-align: center;
-  margin-bottom: 20px;
-}
+      .sidebar header.profile {
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-header.profile figure.avatar {
-  width: 60px;
-  height: 60px;
-  background: #333;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
+      header.profile figure.avatar {
+        width: 60px;
+        height: 60px;
+        background: #333;
+        border-radius: 50%;
+        margin-bottom: 10px;
+      }
 
-nav.menu {
-  width: 100%;
-}
+      nav.menu {
+        width: 100%;
+      }
 
-.menu-item {
-  display: block;
-  padding: 10px 15px;
-  color: #aaa;
-  text-decoration: none;
-  border-radius: 8px;
-  margin-bottom: 5px;
-  transition: background 0.3s ease;
-}
+      .menu-item {
+        display: block;
+        padding: 10px 15px;
+        color: #aaa;
+        text-decoration: none;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        transition: background 0.3s ease;
+      }
 
-.menu-item:hover,
-.menu-item.upgrade {
-  background: #ff5f57;
-  color: white;
-}
+      .menu-item:hover,
+      .menu-item.upgrade {
+        background: #ff5f57;
+        color: white;
+      }
 
-.menu-item.active {
-  background: #ff5f57; /* Keep the hover color after click */
-  color: white;
-}`;
+      .menu-item.active {
+        background: #ff5f57;
+        color: white;
+      }
+    `;
 
     // Append all elements to the sidebar container
     sidebar.appendChild(profileHeader);
@@ -124,6 +138,15 @@ nav.menu {
     // Attach the sidebar container to the shadow DOM
     shadow.appendChild(style);
     shadow.appendChild(sidebar);
+  }
+
+  updateUsername(userName) {
+    const nameElement = this.shadowRoot.querySelector("header.profile h2");
+    if (nameElement) {
+      nameElement.textContent = userName;
+    } else {
+      console.warn("Name element not found in sidebar.");
+    }
   }
 }
 

@@ -114,6 +114,7 @@ class EventGoingCart extends HTMLElement {
 
             cartList.appendChild(eventItem);
         });
+
     }
 
     saveCart() {

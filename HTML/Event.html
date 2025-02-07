@@ -1,58 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="This is my event page u can explore and athletes.">
-    <title>Event Page</title>
-    <link rel="stylesheet" href="../CSS/landing.css" />
-    <link rel="stylesheet" href="../CSS/event.css" />
-    <script src="../Components/sidebar-component.js" type="module"></script>
-    <script src="../Components/event-card.js" type="module"></script>
-    <script src="../Components/event.js" type="module"></script>
-    <script src="../Components/event-cardlist.js" type="module"></script>
-    <script src="../Components/event-goingcart.js" type="module"></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="This is my event page u can explore and athletes.">
+  <title>Event Page</title>
+  <link rel="stylesheet" href="../CSS/landing.css" />
+  <link rel="stylesheet" href="../CSS/event.css" />
+  <script src="../Components/sidebar-component.js" type="module"></script>
+  <script src="../Components/event-card.js" type="module"></script>
+  <script src="../Components/event.js" type="module"></script>
+  <script src="../Components/event-cardlist.js" type="module"></script>
+  <script src="../Components/event-goingcart.js" type="module"></script>
+</head>
 
-  <body>
-    <!-- Event Uusgeh Form -->
-    <section class="dashboard">
-      <sidebar-navigation></sidebar-navigation>
-      <main class="main-content" id="main-content">
-        <div class="toolbar">
-            <input
-              type="text"
-              id="search-input"
-              class="search-bar-input"
-              placeholder="Search events..."
-              oninput="filterEvents()"
-            />
-          <button id="toggle-form-btn">Create Event</button>
-        </div>
-        <!-- Create Event Form -->
-        <div id="create-event-container" style="display: none">
-          <h2>Create an Event</h2>
-          <form id="create-event-form">
-            <input type="text" id="title" placeholder="Event Title" required />
-            <textarea
-              id="description"
-              placeholder="Event Description"
-              required
-            ></textarea>
-            <input type="datetime-local" id="date" required />
-            <input type="text" id="location" placeholder="Location" required />
-            <input type="file" id="image" accept="image/*" required />
-            <button type="submit">Create Event</button>
-          </form>
-        </div>
-        <!-- Event List -->
-        <section>
-          <h2>Upcoming Events</h2>
-            <event-cardlist></event-cardlist>
-          <h2>IDK</h2>
-            <event-goingcart></event-goingcart>
-        </section>
-      </main>
-    </section>
-  </body>
+<body>
+  <!-- Event Uusgeh Form -->
+  <section class="dashboard">
+    <sidebar-navigation></sidebar-navigation>
+    <main class="main-content" id="main-content">
+      <div class="toolbar">
+        <input type="text" id="search-input" class="search-bar-input" placeholder="Search events..."
+          oninput="filterEvents()" />
+        <button id="toggle-form-btn">Create Event</button>
+        <button id="toggle-cart-btn" style="position: relative; background: none; border: none; cursor: pointer;">
+          <img src="../img/icons8-go-96.png" alt="search svg" height="44px" id="go-icon">
+        </button>
+        <event-goingcart id="eventCart"></event-goingcart>
+      </div>
+      <!-- Create Event Form -->
+      <dialog id="create-event-dialog" >
+        <h2>Create an Event</h2>
+        <form id="create-event-form">
+          <input type="text" id="title" placeholder="Event Title" required />
+          <textarea id="description" placeholder="Event Description" required></textarea>
+          <input type="datetime-local" id="date" required />
+          <input type="text" id="location" placeholder="Location" required />
+          <input type="file" id="image" accept="image/*" />
+          <button type="submit">Create Event</button>
+          <button type="button" id="close-form-btn">Close</button>
+        </form>
+      </dialog>
+
+
+      <!-- Event List -->
+      <section>
+        <h2>Upcoming Events</h2>
+        <event-cardlist></event-cardlist>
+        <h2>IDK</h2>
+        <!-- <event-goingcart></event-goingcart> -->
+      </section>
+    </main>
+  </section>
+</body>
+
 </html>

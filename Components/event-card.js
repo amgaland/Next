@@ -9,7 +9,6 @@ class EventCard extends HTMLElement {
     }
 
     render() {
-        console.log(this)
         const title = this.getAttribute("title") || "Unknown Event";
         const description = this.getAttribute("description") || "No description available.";
         const date = new Date(this.getAttribute("date")).toLocaleString();
@@ -18,7 +17,6 @@ class EventCard extends HTMLElement {
 
         const rsvpCount = this.getAttribute("rsvp-count") || 0;
         const eventId = this.getAttribute("event-id");
-
         this.shadowRoot.innerHTML = `
         <style>
             .event-card {
@@ -121,7 +119,7 @@ class EventCard extends HTMLElement {
                 bubbles: true, // Allow event to bubble up the DOM
                 composed: true // Cross shadow DOM boundaries
             }));
-            console.log(rsvpCount)
+
         } else {
             alert("Error RSVPing to the event.");
         }

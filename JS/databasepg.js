@@ -1,6 +1,3 @@
-// HTTP server, PostgreSQL database-iig holbon backend-g hiisen kod.
-// Node.js ashiglaj plain module-r bichigdsen.
-
 const http = require("http");
 const { Client } = require("pg");
 const url = require("url");
@@ -17,19 +14,18 @@ const db = new Client({
 });
 db.connect();
 
-// Request body parse hiih utility funkts.
+// Utility to parse request body
 function parseBody(req) {
   return new Promise((resolve, reject) => {
     let body = "";
-    req.on("data", (chunk) => (body += chunk)); // Body data-g unshina.
+    req.on("data", (chunk) => (body += chunk));
     req.on("end", () => resolve(body));
     req.on("error", reject);
   });
 }
 
-// Route handler-uudiig zarlana.
+// Route handlers
 const routes = {
-  // GET method-d uilchleh route-uud.
   GET: {
     "/api/clubs": async (req, res) => {
       try {
@@ -87,11 +83,7 @@ const routes = {
       }
     },
   },
-  // POST method-d uilchleh route-uud.
   POST: {
-<<<<<<< HEAD
-    // Event uusgeh route.
-=======
     "/api/login": async (req, res) => {
       try {
         const body = JSON.parse(await parseBody(req));
@@ -133,10 +125,9 @@ const routes = {
         res.end("Internal Server Error");
       }
     },
->>>>>>> 5c67406189b6521345b5d896a0efdeb64b3a74d6
     "/api/events": async (req, res) => {
       try {
-        const body = JSON.parse(await parseBody(req)); // Body-g parse hiine.
+        const body = JSON.parse(await parseBody(req));
         const { title, description, date, location, image_path } = body;
 
         const result = await db.query(
@@ -152,7 +143,6 @@ const routes = {
         res.end("Internal Server Error");
       }
     },
-    // Event RSVP nemelt hiih(count toolohdoo ashiglana)
     "/api/events/:id/rsvp": async (req, res, params) => {
       try {
         const eventId = params.id;
@@ -171,9 +161,8 @@ const routes = {
       }
     },
   },
-  // File serve hiih(zuragnii input ee zasah)
   GET_FILE: {
-    "/uploads/:filename": async (req, res, params) => {
+    "/uploads": async (req, res, params) => {
       try {
         const filePath = path.join(__dirname, "uploads", params.filename);
 
@@ -224,7 +213,7 @@ const routes = {
   },
 };
 
-// Route-g match hiih funkts.
+// Match route function
 function matchRoute(method, pathname) {
   const routeKeys = Object.keys(routes[method] || {});
   for (const route of routeKeys) {
@@ -247,14 +236,14 @@ function matchRoute(method, pathname) {
   return null;
 }
 
-// Server uusgej ehluulne.
+// Create the server
 const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const pathname = parsedUrl.pathname;
 
-  // CORS header-nuud nemelt.
+  // Add CORS headers
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, GET_FILE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   // Handle preflight requests

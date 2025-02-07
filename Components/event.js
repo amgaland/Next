@@ -1,15 +1,31 @@
 const toggleFormBtn = document.getElementById("toggle-form-btn");
-const createEventContainer = document.getElementById(
-    "create-event-container"
-);
+const createEventDialog = document.getElementById("create-event-dialog");
 
 toggleFormBtn.addEventListener("click", () => {
-    if (createEventContainer.style.display === "none") {
-        createEventContainer.style.display = "block";
-        toggleFormBtn.textContent = "Hide Form";
+    if (!createEventDialog.open) {
+        createEventDialog.showModal(); // Show as a modal dialog
+    }
+});
+
+document.getElementById("close-form-btn").addEventListener("click", () => {
+    createEventDialog.close(); // Close the dialog
+});
+
+
+const toggleCartBtn = document.getElementById("toggle-cart-btn");
+
+toggleCartBtn.addEventListener("click", () => {
+    console.log("gg");
+})
+
+document.getElementById("go-icon").addEventListener("click", function () {
+    let eventCart = document.getElementById("eventCart");
+
+    // Toggle display
+    if (eventCart.style.display === "none" || eventCart.style.display === "") {
+        eventCart.style.display = "block";
     } else {
-        createEventContainer.style.display = "none";
-        toggleFormBtn.textContent = "Create Event";
+        eventCart.style.display = "none";
     }
 });
 
@@ -66,8 +82,8 @@ document.getElementById("create-event-form").addEventListener("submit", async (e
         const formData = new FormData();
         formData.append("image", imageInput);
 
-        const uploadResponse = await fetch("http://localhost:3000/upload", {
-            method: "POST",
+        const uploadResponse = await fetch("http://localhost:3000/uploads", {
+            method: "GET_FILE",
             body: formData,
         });
 

@@ -69,17 +69,6 @@ class SidebarNavigation extends HTMLElement {
 
     // Add styles to the shadow DOM
     const style = document.createElement("style");
-<<<<<<< HEAD
-    style.textContent = `.sidebar {
-  width: 250px;
-  background: rgba(28, 28, 31, 0.8);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 10px;
-}
-=======
     style.textContent = `
       .sidebar {
         width: 250px;
@@ -90,7 +79,6 @@ class SidebarNavigation extends HTMLElement {
         align-items: center;
         border-radius: 10px;
       }
->>>>>>> 5c67406189b6521345b5d896a0efdeb64b3a74d6
 
       .sidebar header.profile {
         text-align: center;

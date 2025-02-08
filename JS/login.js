@@ -25,7 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         alert("Login successful!");
+
         updateSidebar(data.user.user_id);
+        window.location.href = "/HTML/Event.html"
       } else {
         alert(data.message || "Login failed.");
       }

@@ -21,7 +21,8 @@
     <main class="main-content" id="main-content">
       <div class="toolbar">
         <input type="text" id="search-input" class="search-bar-input" placeholder="Search events..."
-          oninput="filterEvents()" />
+          oninput="updateSearchQuery()" />
+
         <button id="toggle-form-btn">Create Event</button>
         <button id="toggle-cart-btn" style="position: relative; background: none; border: none; cursor: pointer;">
           <img src="../img/icons8-go-96.png" alt="search svg" height="44px" id="go-icon">
@@ -47,11 +48,36 @@
       <section>
         <h2>Upcoming Events</h2>
         <event-cardlist></event-cardlist>
-        <h2>IDK</h2>
+
         <!-- <event-goingcart></event-goingcart> -->
       </section>
     </main>
   </section>
+  <script>
+    function updateSearchQuery() {
+      const searchInput = document.getElementById("search-input").value;
+      const urlParams = new URLSearchParams(window.location.search);
+
+      if (searchInput) {
+        urlParams.set("search", searchInput);
+      } else {
+        urlParams.delete("search");
+      }
+
+      window.history.replaceState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+
+      // Dispatch event so EventCardList updates results
+      document.dispatchEvent(new CustomEvent("search-updated", { detail: searchInput }));
+    }
+
+    // On page load, set the search input value from URL
+    window.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchQuery = urlParams.get("search") || "";
+      document.getElementById("search-input").value = searchQuery;
+    });
+  </script>
+
 </body>
 
 </html>

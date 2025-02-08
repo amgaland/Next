@@ -12,7 +12,7 @@ class EventCardList extends HTMLElement {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 20px;
             }
-                    .filter-container {
+            .filter-container {
                 margin-bottom: 10px;
             }
             select {
@@ -35,26 +35,51 @@ class EventCardList extends HTMLElement {
 
     connectedCallback() {
         this.fetchEvents();
-        this.shadowRoot.querySelector("#filter").addEventListener("change", (e) => this.sortEvents(e.target.value));
-        // Listen for the event from event-card
+
+        // Restore sorting functionality
+        this.shadowRoot.querySelector("#filter").addEventListener("change", (e) => {
+            this.updateURLQuery(e.target.value);
+        });
+
+        // Listen for new events being added to the cart
         document.addEventListener("event-added", (e) => {
             const eventGoingCart = document.querySelector("event-goingcart");
             if (eventGoingCart) {
                 eventGoingCart.addToCart(e.detail);
             }
         });
-    }
 
+        // Listen for search updates
+        document.addEventListener("search-updated", (e) => {
+            this.filterEvents(e.detail);
+        });
+
+        // Check for existing query params and apply filtering/sorting
+        const urlParams = new URLSearchParams(window.location.search);
+        const sortBy = urlParams.get("sort") || "date";
+        this.shadowRoot.querySelector("#filter").value = sortBy;
+    }
 
     async fetchEvents() {
         try {
             const response = await fetch("http://localhost:3000/api/events");
             if (!response.ok) throw new Error("Failed to fetch events");
             this.events = await response.json();
-            this.renderEvents();
+
+            // Apply search filter if a query exists
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get("search") || "";
+            this.filterEvents(searchQuery);
         } catch (error) {
             console.error("Error fetching events:", error);
         }
+    }
+
+    updateURLQuery(criteria) {
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set("sort", criteria);
+        window.history.replaceState({}, "", `${window.location.pathname}?${urlParams.toString()}`);
+        this.sortEvents(criteria);
     }
 
     sortEvents(criteria) {
@@ -68,11 +93,20 @@ class EventCardList extends HTMLElement {
         this.renderEvents();
     }
 
-    renderEvents() {
+    filterEvents(query) {
+        const filteredEvents = this.events.filter(event =>
+            event.title.toLowerCase().includes(query.toLowerCase()) ||
+            event.description.toLowerCase().includes(query.toLowerCase()) ||
+            event.location.toLowerCase().includes(query.toLowerCase())
+        );
+        this.renderEvents(filteredEvents);
+    }
+
+    renderEvents(filteredEvents = this.events) {
         const eventListContainer = this.shadowRoot.querySelector(".event-list");
         eventListContainer.innerHTML = "";
 
-        this.events.forEach(event => {
+        filteredEvents.forEach(event => {
             const eventCard = document.createElement("event-card");
             eventCard.setAttribute("title", event.title);
             eventCard.setAttribute("description", event.description);
@@ -82,10 +116,8 @@ class EventCardList extends HTMLElement {
             eventCard.setAttribute("event-id", event.id);
             eventCard.setAttribute("image_path", event.image_path);
 
-            // Listen for the "rsvp" event and add to the cart
             eventCard.addEventListener("rsvp", (e) => {
                 const eventGoingCart = document.querySelector("event-goingcart");
-                 // Passing event details to cart
                 if (eventGoingCart) {
                     eventGoingCart.addToCart(e.detail);
                 }
